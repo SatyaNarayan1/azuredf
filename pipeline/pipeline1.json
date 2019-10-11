@@ -4,7 +4,7 @@
 		"activities": [
 			{
 				"name": "CopyFromADLS2toADLS2",
-				"description": "Copying Data from ADLS gen2 to ADLS gen2 storage",
+				"description": "Copying Data from ADLS gen2 to ADLS gen2 storage test",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
