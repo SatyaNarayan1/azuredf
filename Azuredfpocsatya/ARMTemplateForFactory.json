@@ -11,15 +11,103 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
 		},
+		"AzureHDInsightLinkedService_clusterPassword": {
+			"type": "secureString",
+			"metadata": "Secure string for 'clusterPassword' of 'AzureHDInsightLinkedService'"
+		},
+		"AzureHDInsightLinkedService_clusterSshPassword": {
+			"type": "secureString",
+			"metadata": "Secure string for 'clusterSshPassword' of 'AzureHDInsightLinkedService'"
+		},
+		"AzureHDInsightLinkedService_servicePrincipalKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'servicePrincipalKey' of 'AzureHDInsightLinkedService'"
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://adfpocsatya.dfs.core.windows.net"
+		},
+		"AzureHDInsightLinkedService_properties_typeProperties_hostSubscriptionId": {
+			"type": "string",
+			"defaultValue": "68a938d0-fbed-4563-985a-2097d93c7089"
+		},
+		"AzureHDInsightLinkedService_properties_typeProperties_clusterResourceGroup": {
+			"type": "string",
+			"defaultValue": "poc-resourcegroup"
+		},
+		"AzureHDInsightLinkedService_properties_typeProperties_servicePrincipalId": {
+			"type": "string",
+			"defaultValue": "4bafa8c2-507b-4bd9-abca-cf35d00eb033"
+		},
+		"AzureHDInsightLinkedService_properties_typeProperties_tenant": {
+			"type": "string",
+			"defaultValue": "3cbcc3d3-094d-4006-9849-0d11d61f484d"
+		},
+		"AzureHDInsightLinkedService_properties_typeProperties_clusterUserName": {
+			"type": "string",
+			"defaultValue": "admin"
+		},
+		"AzureHDInsightLinkedService_properties_typeProperties_clusterSshUserName": {
+			"type": "string",
+			"defaultValue": "admin"
 		}
 	},
 	"variables": {
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/SparkTestPipeline')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Pipeline to test Spark",
+				"activities": [
+					{
+						"name": "SparkWordCount",
+						"description": "Node reads data from ADLS and does word count",
+						"type": "HDInsightSpark",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"rootPath": "spark/scripts",
+							"entryFilePath": "WordCount_Spark.py",
+							"sparkJobLinkedService": {
+								"referenceName": "AzureDataLakeStorage1",
+								"type": "LinkedServiceReference"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureHDInsightLinkedService",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "Execute Pipeline1",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					}
+				],
+				"concurrency": 1,
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureHDInsightLinkedService')]"
+			]
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
@@ -139,6 +227,55 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureHDInsightLinkedService')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Azure HDInsight cluster",
+				"annotations": [],
+				"type": "HDInsightOnDemand",
+				"typeProperties": {
+					"clusterType": "spark",
+					"clusterSize": 4,
+					"timeToLive": "00:15:00",
+					"version": "3.6",
+					"hostSubscriptionId": "[parameters('AzureHDInsightLinkedService_properties_typeProperties_hostSubscriptionId')]",
+					"clusterResourceGroup": "[parameters('AzureHDInsightLinkedService_properties_typeProperties_clusterResourceGroup')]",
+					"servicePrincipalId": "[parameters('AzureHDInsightLinkedService_properties_typeProperties_servicePrincipalId')]",
+					"osType": "Linux",
+					"tenant": "[parameters('AzureHDInsightLinkedService_properties_typeProperties_tenant')]",
+					"clusterNamePrefix": "azurepoc",
+					"clusterUserName": "[parameters('AzureHDInsightLinkedService_properties_typeProperties_clusterUserName')]",
+					"clusterPassword": {
+						"type": "SecureString",
+						"value": "[parameters('AzureHDInsightLinkedService_clusterPassword')]"
+					},
+					"clusterSshUserName": "[parameters('AzureHDInsightLinkedService_properties_typeProperties_clusterSshUserName')]",
+					"clusterSshPassword": {
+						"type": "SecureString",
+						"value": "[parameters('AzureHDInsightLinkedService_clusterSshPassword')]"
+					},
+					"sparkVersion": "2.4.0",
+					"servicePrincipalKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureHDInsightLinkedService_servicePrincipalKey')]"
+					},
+					"linkedServiceName": {
+						"referenceName": "AzureDataLakeStorage1",
+						"type": "LinkedServiceReference"
+					},
+					"headNodeSize": "",
+					"dataNodeSize": "",
+					"zookeeperNodeSize": "",
+					"subnetName": "",
+					"virtualNetworkId": ""
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
+			]
 		}
 	]
 }

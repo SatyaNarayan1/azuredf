@@ -8,8 +8,35 @@
 		"AzureDataLakeStorage1_accountKey": {
 			"value": ""
 		},
+		"AzureHDInsightLinkedService_clusterPassword": {
+			"value": ""
+		},
+		"AzureHDInsightLinkedService_clusterSshPassword": {
+			"value": ""
+		},
+		"AzureHDInsightLinkedService_servicePrincipalKey": {
+			"value": ""
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"value": "https://adfpocsatya.dfs.core.windows.net"
+		},
+		"AzureHDInsightLinkedService_properties_typeProperties_hostSubscriptionId": {
+			"value": "68a938d0-fbed-4563-985a-2097d93c7089"
+		},
+		"AzureHDInsightLinkedService_properties_typeProperties_clusterResourceGroup": {
+			"value": "poc-resourcegroup"
+		},
+		"AzureHDInsightLinkedService_properties_typeProperties_servicePrincipalId": {
+			"value": "4bafa8c2-507b-4bd9-abca-cf35d00eb033"
+		},
+		"AzureHDInsightLinkedService_properties_typeProperties_tenant": {
+			"value": "3cbcc3d3-094d-4006-9849-0d11d61f484d"
+		},
+		"AzureHDInsightLinkedService_properties_typeProperties_clusterUserName": {
+			"value": "admin"
+		},
+		"AzureHDInsightLinkedService_properties_typeProperties_clusterSshUserName": {
+			"value": "admin"
 		}
 	}
 }
