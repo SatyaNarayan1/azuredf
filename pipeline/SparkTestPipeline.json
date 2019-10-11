@@ -20,7 +20,7 @@
 					"rootPath": "spark/scripts",
 					"entryFilePath": "WordCount_Spark.py",
 					"sparkJobLinkedService": {
-						"referenceName": "AzureDataLakeStorage1",
+						"referenceName": "AzureDataLakeStorage2",
 						"type": "LinkedServiceReference"
 					}
 				},
