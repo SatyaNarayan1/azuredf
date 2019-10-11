@@ -11,6 +11,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
 		},
+		"AzureDataLakeStorage2_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage2'"
+		},
 		"AzureHDInsightLinkedService_clusterPassword": {
 			"type": "secureString",
 			"metadata": "Secure string for 'clusterPassword' of 'AzureHDInsightLinkedService'"
@@ -28,6 +32,10 @@
 			"metadata": "Secure string for 'password' of 'AzureStaticHDInsightCluster'"
 		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adfpocsatya.dfs.core.windows.net"
+		},
+		"AzureDataLakeStorage2_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://adfpocsatya.dfs.core.windows.net"
 		},
@@ -89,6 +97,9 @@
 					"AzureDataLakeStorage1_accountKey": {
 						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
 					},
+					"AzureDataLakeStorage2_accountKey": {
+						"value": "[parameters('AzureDataLakeStorage2_accountKey')]"
+					},
 					"AzureHDInsightLinkedService_clusterPassword": {
 						"value": "[parameters('AzureHDInsightLinkedService_clusterPassword')]"
 					},
@@ -103,6 +114,9 @@
 					},
 					"AzureDataLakeStorage1_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
+					},
+					"AzureDataLakeStorage2_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage2_properties_typeProperties_url')]"
 					},
 					"AzureHDInsightLinkedService_properties_typeProperties_hostSubscriptionId": {
 						"value": "[parameters('AzureHDInsightLinkedService_properties_typeProperties_hostSubscriptionId')]"

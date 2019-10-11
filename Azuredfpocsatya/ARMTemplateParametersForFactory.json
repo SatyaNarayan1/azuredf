@@ -8,6 +8,9 @@
 		"AzureDataLakeStorage1_accountKey": {
 			"value": ""
 		},
+		"AzureDataLakeStorage2_accountKey": {
+			"value": ""
+		},
 		"AzureHDInsightLinkedService_clusterPassword": {
 			"value": ""
 		},
@@ -21,6 +24,9 @@
 			"value": ""
 		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://adfpocsatya.dfs.core.windows.net"
+		},
+		"AzureDataLakeStorage2_properties_typeProperties_url": {
 			"value": "https://adfpocsatya.dfs.core.windows.net"
 		},
 		"AzureHDInsightLinkedService_properties_typeProperties_hostSubscriptionId": {
