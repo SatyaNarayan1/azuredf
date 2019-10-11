@@ -17,6 +17,9 @@
 		"AzureHDInsightLinkedService_servicePrincipalKey": {
 			"value": ""
 		},
+		"AzureStaticHDInsightCluster_password": {
+			"value": ""
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"value": "https://adfpocsatya.dfs.core.windows.net"
 		},
@@ -36,6 +39,9 @@
 			"value": "admin"
 		},
 		"AzureHDInsightLinkedService_properties_typeProperties_clusterSshUserName": {
+			"value": "admin"
+		},
+		"AzureStaticHDInsightCluster_properties_typeProperties_userName": {
 			"value": "admin"
 		},
 		"containerUri": {

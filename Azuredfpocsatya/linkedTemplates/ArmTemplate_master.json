@@ -23,6 +23,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'servicePrincipalKey' of 'AzureHDInsightLinkedService'"
 		},
+		"AzureStaticHDInsightCluster_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'AzureStaticHDInsightCluster'"
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://adfpocsatya.dfs.core.windows.net"
@@ -48,6 +52,10 @@
 			"defaultValue": "admin"
 		},
 		"AzureHDInsightLinkedService_properties_typeProperties_clusterSshUserName": {
+			"type": "string",
+			"defaultValue": "admin"
+		},
+		"AzureStaticHDInsightCluster_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "admin"
 		},
@@ -90,6 +98,9 @@
 					"AzureHDInsightLinkedService_servicePrincipalKey": {
 						"value": "[parameters('AzureHDInsightLinkedService_servicePrincipalKey')]"
 					},
+					"AzureStaticHDInsightCluster_password": {
+						"value": "[parameters('AzureStaticHDInsightCluster_password')]"
+					},
 					"AzureDataLakeStorage1_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
 					},
@@ -110,6 +121,9 @@
 					},
 					"AzureHDInsightLinkedService_properties_typeProperties_clusterSshUserName": {
 						"value": "[parameters('AzureHDInsightLinkedService_properties_typeProperties_clusterSshUserName')]"
+					},
+					"AzureStaticHDInsightCluster_properties_typeProperties_userName": {
+						"value": "[parameters('AzureStaticHDInsightCluster_properties_typeProperties_userName')]"
 					}
 				}
 			},
