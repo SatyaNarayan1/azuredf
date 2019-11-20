@@ -1,0 +1,27 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "Select1"
+				},
+				{
+					"name": "Union1"
+				}
+			],
+			"script": "\n\nsource(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tlimit: 100) ~> source1\nsource1 select(mapColumn(\n\t\teach(match(equalsIgnoreCase(equalsIgnoreCase(in()))),\n\t\t\tERROR_FUNCTION('') = $$),\n\t\teach(match(ERROR_FUNCTION('')),\n\t\t\tERROR_FUNCTION('') = $$),\n\t\teach(match(ERROR_FUNCTION('')),\n\t\t\tERROR_FUNCTION('') = $$),\n\t\teach(match(ERROR_FUNCTION('')),\n\t\t\tERROR_FUNCTION('') = $$)\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select1\nSelect1 union(byName: true)~> Union1"
+		}
+	}
+}
